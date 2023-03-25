@@ -8,3 +8,4 @@ src/app/.DS_Store
 .angular
 www
 .venv
+src/environments
