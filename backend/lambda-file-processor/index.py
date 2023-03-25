@@ -54,14 +54,14 @@ def lambda_handler(event, context):
         # with open('./'+key) as fileData:
         #     print(fileData.read())
         model = cv2.dnn.readNet(filepath_model)
-        activity = video_activity('/tmp/{}'.format(key), model)
-        print(activity)
+        activities = video_activity('/tmp/{}'.format(key), model)
+        print(activities)
         # return {
         #     'statusCode': 200,
         #     'body': json.dumps(activity)
         # }
-        if activity.lower() == api_get_result['prompt'].lower():
-          activity_match_result = "true"
+        if api_get_result['prompt'].lower() in activities:
+            activity_match_result = "true"
         else:
           activity_match_result = "false"
 
@@ -150,8 +150,7 @@ def video_activity(filepath_in_video, model):
   most_common_activity = activity_counts.most_common(1)[0][0]
 
   vcap.release()
-  print(predicted_classes)
-  return most_common_activity
+  return predicted_classes
 
 def deserialize_dynamodb_data(dbdata):
   # Decode bytes to string
