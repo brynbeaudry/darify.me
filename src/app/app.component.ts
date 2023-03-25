@@ -5,6 +5,8 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+
+
   public appPages = [
 /*     { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },
     { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
@@ -12,8 +14,10 @@ export class AppComponent {
     { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
     { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
     { title: 'Spam', url: '/folder/Spam', icon: 'warning' }, */
-    { title: 'Map', url: '/map', icon: 'map' },
-
+    { title: 'Start', url: '/', icon: 'home' },
+    { title: 'Random', url: '/dares/random', icon: 'shuffle' },
+    { title: 'List', url: '/dares/list', icon: 'list' },
+    { title: 'Share', url: '/share/create', icon: 'send' },
   ];
   //public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor() {}

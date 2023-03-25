@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { DareComponent } from './dare/dare.component';
 import { ShareComponent } from './share/share.component';
 import { HomeComponent } from './home/home.component';
+import { ShareCreateComponent } from './share-create/share-create.component';
 
 const routes: Routes = [
   /* {
@@ -12,18 +13,28 @@ const routes: Routes = [
   {
     path: '/',
     component: HomeComponent
-  }
+  },
   {
-    path: 'dare/:id',
+    path: 'dare/:id', // Known Dares, Includes random
     component: DareComponent
   },
   {
-    path: 'dare/:id',
-    component: DareComponent
+    path: 'dare/random', // Known Dares, Includes random
+    redirectTo: 'dare/---random-known-uuid----',
+    pathMatch: 'full'
   },
   {
-    path: 'share/:id',
+    path: 'dare/list', // Known Dares, Includes random
+    redirectTo: 'dare/---random-known-uuid----',
+    pathMatch: 'full'
+  },
+  {
+    path: 'share/dare/:id',
     component: ShareComponent
+  },
+  {
+    path: 'share/create',
+    component: ShareCreateComponent
   }
 ];
 
