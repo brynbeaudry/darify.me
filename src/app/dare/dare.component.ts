@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
 import { ActivatedRoute } from '@angular/router';
 import { v4 as uuidv4 } from 'uuid';
 import * as AWS from 'aws-sdk';
@@ -21,10 +22,11 @@ Put object to s3 bucket dareme-video-store-dev with key = uuid
 Poll /dare with get requests until the json has result in addition to uuid, username, and prompt */
 export class DareComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private elementRef: ElementRef) { }
+  constructor(private route: ActivatedRoute, private elementRef: ElementRef, private storageService: Storage) { }
   private dare: any;
+  private storage: Storage | null = null;
   title = ''
-  username!: string;
+  username? : string;
   countDownValue = 0;
   
 
@@ -51,6 +53,8 @@ export class DareComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.storage = await this.storageService.create();
+
     const dareKey = this.route.snapshot.params['key'];
 
     if (dareKey === 'random') {
@@ -60,10 +64,12 @@ export class DareComponent implements OnInit {
     }
 
     this.title = this.dare.keyPrompt
-
+    this.username = await this.storage?.get('USERNAME') ?? '';
     // Initilize the user
-    this.username = await this.promptDialog('Enter a username', 'Your Name')
-    
+    if (!this.username){
+      this.username = await this.promptDialog('Enter a username', 'Your Name')
+      await this.storage?.set('USERNAME', this.username);
+    } 
   }
 
   async onButtonClick(event: any){
