@@ -1,2 +1,3 @@
 /backend/lambda-file-processor/package
 .idea
+/node_modules
