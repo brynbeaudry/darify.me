@@ -190,7 +190,7 @@ export class DareComponent implements OnInit, OnDestroy {
       switchMap(() => this.http.get(`${DARE_AWS_URL}/${uuid}`))
     ).subscribe(async (data : any) => {
       console.log(data);
-      const result = data.result["Item"]["result"]["S"]
+      const result = data["Item"]["result"]["S"]
       console.log(result)
       if (result === "true" || result === "false") {
         let response;
