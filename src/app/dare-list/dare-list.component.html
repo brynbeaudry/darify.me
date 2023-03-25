@@ -1,6 +1,6 @@
 <ion-content>
 <ion-list>
-  <ion-item *ngFor="let item of dareList" [routerLink]="['/dare/{{item.key}}']">
+  <ion-item *ngFor="let item of dareList" [routerLink]="['/dare/' + item.key]">
     <ion-icon name="alert-circle-outline" slot="start"></ion-icon>
     <ion-label>{{item.keyPrompt}}</ion-label>
   </ion-item>

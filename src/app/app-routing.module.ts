@@ -26,13 +26,12 @@ const routes: Routes = [
     component: DareListComponent,
   },
   {
-    path: 'dare/:key', // Known Dares, Includes random
+    path: 'dare/random', // Known Dares, Includes random
     component: DareComponent
   },
   {
-    path: 'dare/random', // Known Dares, Includes random
-    redirectTo: 'dare/random-known-key',
-    pathMatch: 'full'
+    path: 'dare/:key', // Known Dares, Includes random
+    component: DareComponent
   },
   {
     path: 'share/dare/:uuid',

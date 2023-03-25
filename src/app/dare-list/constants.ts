@@ -22,7 +22,7 @@ export const KNOWN_DARES_LIST = [
     },
     {
       key: 'd7f8ad97-8d56-4b58-b000-f8d4f964eea3',
-      keyPrompt: 'Attempt to hack into Brickyard for 10 seconds',
+      keyPrompt: 'Attempt to hack into the Brickyard Network for 10 seconds',
       acceptableTokens: 'using computer'
     },
     {
