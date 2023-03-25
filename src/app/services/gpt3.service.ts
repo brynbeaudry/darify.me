@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class Gpt3Service {
   private apiUrl = 'https://api.openai.com/v1/completions';
-  private apiKey = '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';
+  private apiKey = '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';
 
   constructor(private http: HttpClient) {}
 
