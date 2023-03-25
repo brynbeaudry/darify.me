@@ -147,7 +147,7 @@ export class DareComponent implements OnInit, OnDestroy {
 
     const s3Resp = await s3.upload(params).promise();
 
-    interval(2000).pipe(
+    const polling = interval(2000).pipe(
       switchMap(() => this.http.get(`${DARE_AWS_URL}/${uuid}`))
     ).subscribe((data : any) => {
       console.log(data);
@@ -157,6 +157,7 @@ export class DareComponent implements OnInit, OnDestroy {
         } else {
           alert('OOO Maybe next time')
         }
+        polling.unsubscribe()
       }
     });
 
