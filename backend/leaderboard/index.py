@@ -6,7 +6,8 @@ def lambda_handler(event, context):
     try:
         print('Getting list from backend api')
         res = requests.get('https://xdg792fpxd.execute-api.us-east-1.amazonaws.com/dev/dare/list')
-        results = get_true_results_count(res.json())
+        sorted_dict = dict(sorted(results.items(), key=lambda x: x[1], reverse=True))
+        results = get_true_results_count(sorted_dict.json())
         return {
             'statusCode': 200,
             'body': json.dumps(results)
