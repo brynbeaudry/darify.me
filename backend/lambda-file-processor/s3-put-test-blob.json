@@ -27,7 +27,7 @@
           "arn": "arn:aws:s3:::dareme-video-store-dev"
         },
         "object": {
-          "key": "hurst-test-file.txt",
+          "key": "7899190d-7111-441a-a69d-1e3ec0554cdd",
           "size": 1024,
           "eTag": "0123456789abcdef0123456789abcdef",
           "sequencer": "0A1B2C3D4E5F678901"
