@@ -7,3 +7,4 @@ lambda-file-processor.zip
 src/app/.DS_Store
 .angular
 www
+.venv
