@@ -8,10 +8,14 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { MapComponent } from './map/map.component';
+import { DareComponent } from './dare/dare.component';
+import { DareListComponent } from './dare-list/dare-list.component';
+import { HomeComponent } from './home/home.component';
+import { ShareComponent } from './share/share.component';
+import { ShareCreateComponent } from './share-create/share-create.component';
 
 @NgModule({
-  declarations: [AppComponent, MapComponent],
+  declarations: [AppComponent, DareComponent, DareListComponent, HomeComponent, ShareComponent, ShareCreateComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

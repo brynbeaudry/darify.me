@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
-  appName: 'larker-client',
+  appName: 'darify',
   webDir: 'www',
   bundledWebRuntime: false
 };

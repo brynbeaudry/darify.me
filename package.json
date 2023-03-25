@@ -1,8 +1,7 @@
 {
-  "name": "larker-client",
+  "name": "darify.me",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Darify Team",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -26,6 +25,7 @@
     "@capacitor/status-bar": "^4.1.1",
     "@ionic/angular": "^6.1.9",
     "@ionic/pwa-elements": "^3.1.1",
+    "aws-sdk": "^2.1343.0",
     "fs": "^0.0.1-security",
     "ionicons": "^6.0.3",
     "rxjs": "~7.5.0",
@@ -65,5 +65,5 @@
     "ts-node": "~8.3.0",
     "typescript": "~4.8.4"
   },
-  "description": "An Ionic project"
+  "description": "Darify.me"
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { KNOWN_DARES_LIST } from './constants';
 
 @Component({
   selector: 'app-dare-list',
@@ -7,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DareListComponent implements OnInit {
 
+  dareList = KNOWN_DARES_LIST
+
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
 }

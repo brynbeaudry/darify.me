@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { DareComponent } from './dare/dare.component';
-import { ShareComponent } from './share/share.component';
 import { HomeComponent } from './home/home.component';
+import { DareComponent } from './dare/dare.component';
+import { DareListComponent } from './dare-list/dare-list.component';
+import { ShareComponent } from './share/share.component';
 import { ShareCreateComponent } from './share-create/share-create.component';
+
 
 const routes: Routes = [
   /* {
@@ -11,29 +13,33 @@ const routes: Routes = [
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   }, */
   {
-    path: '/',
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
     component: HomeComponent
   },
   {
-    path: 'dare/:id', // Known Dares, Includes random
+    path: 'dare/list', // Known Dares, Includes random
+    component: DareListComponent,
+  },
+  {
+    path: 'dare/:key', // Known Dares, Includes random
     component: DareComponent
   },
   {
     path: 'dare/random', // Known Dares, Includes random
-    redirectTo: 'dare/---random-known-uuid----',
+    redirectTo: 'dare/random-known-key',
     pathMatch: 'full'
   },
   {
-    path: 'dare/list', // Known Dares, Includes random
-    redirectTo: 'dare/---random-known-uuid----',
-    pathMatch: 'full'
-  },
-  {
-    path: 'share/dare/:id',
+    path: 'share/dare/:uuid',
     component: ShareComponent
   },
   {
-    path: 'share/create',
+    path: 'share/dare/create',
     component: ShareCreateComponent
   }
 ];

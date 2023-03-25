@@ -1,3 +1,10 @@
-<p>
-  dare works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<video #videoElement></video>
+
+<ion-button (click)="onButtonClick($event)" size="large">
+  GO!
+</ion-button>

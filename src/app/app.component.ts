@@ -15,8 +15,8 @@ export class AppComponent {
     { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
     { title: 'Spam', url: '/folder/Spam', icon: 'warning' }, */
     { title: 'Start', url: '/', icon: 'home' },
-    { title: 'Random', url: '/dares/random', icon: 'shuffle' },
-    { title: 'List', url: '/dares/list', icon: 'list' },
+    { title: 'Random', url: '/dare/random', icon: 'shuffle' },
+    { title: 'List', url: '/dare/list', icon: 'list' },
     { title: 'Share', url: '/share/create', icon: 'send' },
   ];
   //public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];

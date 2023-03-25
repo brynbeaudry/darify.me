@@ -4,3 +4,6 @@
 resnet-34_kinetics.onnx
 lambda-file-processor.zip
 .DS_Store
+src/app/.DS_Store
+.angular
+www
