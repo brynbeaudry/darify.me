@@ -98,29 +98,50 @@ export class DareComponent implements OnInit, OnDestroy {
     }
   }
 
+  async captureVideo(maxDuration : number) {
+    return new Promise<Blob>(async (resolve) => {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+      const videoElement = this.elementRef.nativeElement.querySelector('video');
+      videoElement.srcObject = stream;
+      videoElement.play();
+  
+      const mediaRecorder = new MediaRecorder(stream);
+      const chunks : any[]= [];
+  
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          chunks.push(event.data);
+        }
+      };
+  
+      mediaRecorder.start();
+      console.log('Started recording');
+  
+      setTimeout(() => {
+        mediaRecorder.stop();
+        console.log('Stopped recording');
+      }, maxDuration * 1000);
+  
+      mediaRecorder.onstop = () => {
+        const tracks = videoElement.srcObject.getTracks();
+        tracks.forEach((track : any) => track.stop());
+  
+        const blob = new Blob(chunks, { type: 'video/webm' });
+        console.log('Video Blob:', blob);
+        resolve(blob);
+      };
+    });
+  }
+
   async onButtonClick(event: any) {
     event.preventDefault();
 
     const uuid = uuidv4();
     const s3 = new AWS.S3();
-    const videoElement = this.elementRef.nativeElement.querySelector('video');
     const maxDuration = 10; // seconds  
 
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-    videoElement.srcObject = stream;
-    videoElement.play();
-
-    await new Promise<void>(resolve => {
-      setTimeout(() => {
-        resolve();
-      }, maxDuration * 1000);
-    });
-
-    const tracks = videoElement.srcObject.getTracks();
-    tracks.forEach((track: any) => track.stop());
-
-    const response = await fetch(videoElement.srcObject);
-    const blob = await response.blob();
+    
+    const blob = await this.captureVideo(maxDuration)
 
     const requestBody = {
       "uuid": uuid,
