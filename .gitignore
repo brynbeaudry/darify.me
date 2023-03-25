@@ -2,3 +2,5 @@
 .idea
 /node_modules
 resnet-34_kinetics.onnx
+lambda-file-processor.zip
+.DS_Store

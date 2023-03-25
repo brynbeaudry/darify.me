@@ -6,13 +6,22 @@ import boto3
 import urllib.parse
 import json
 from boto3.dynamodb.types import TypeDeserializer
+import os
 
-filepath_class_names = './files_activity_recognition/class_names_list.txt'
-filepath_model = './files_activity_recognition/resnet-34_kinetics.onnx'
+# List /opt directory (Lambda Layers should be here)
+print('Listing /opt directory')
+path = "/opt"
+print(os.listdir(path))
+
+filepath_class_names = '/opt/files_activity_recognition/class_names_list.txt'
+filepath_model = '/tmp/resnet-34_kinetics.onnx'
 with open(filepath_class_names, 'r') as fh:
     class_names = fh.read().strip().split('\n')
 
 s3 = boto3.client('s3')
+
+# Copying model to /tmp (model is too big for the package zip or a layer
+s3.download_file('dareme-video-store-dev', 'resnet-34_kinetics.onnx', '/tmp/resnet-34_kinetics.onnx')
 
 def lambda_handler(event, context):
     # print("Received event: " + json.dumps(event, indent=2))
