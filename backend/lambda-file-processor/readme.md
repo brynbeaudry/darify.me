@@ -15,10 +15,10 @@ awsume darify
 # Lambda Layer
 
 #cp -R ./files_activity_recognition ./package
-pip3 install --target ./package -r requirements.txt
-mkdir ./package/files_activity_recognition
-cp -R ./files_activity_recognition/class_names_list.txt ./package/files_activity_recognition
-(cd package && zip -r ../lambda-file-processor-layer.zip .)
+pip3 install --target ./python/lib/python3.9/site-packages -r requirements.txt
+mkdir ./python/lib/python3.9/site-packages/files_activity_recognition
+cp -R ./files_activity_recognition/class_names_list.txt ./python/lib/python3.9/site-packages/files_activity_recognition
+zip -r lambda-file-processor-layer.zip python)
 
 #Lambda function
 #pip3 install --target ./package -r requirements.txt
