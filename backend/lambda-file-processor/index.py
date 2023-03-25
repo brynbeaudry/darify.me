@@ -6,12 +6,6 @@ import boto3
 import urllib.parse
 import json
 from boto3.dynamodb.types import TypeDeserializer
-import os
-
-# List /opt directory (Lambda Layers should be here)
-print('Listing /opt directory')
-path = "/opt"
-print(os.listdir(path))
 
 filepath_class_names = '/opt/files_activity_recognition/class_names_list.txt'
 filepath_model = '/tmp/resnet-34_kinetics.onnx'
@@ -47,7 +41,7 @@ def lambda_handler(event, context):
     # Download the file
     try:
         print('Getting file from s3 at: {}/{}'.format(bucket, key))
-        s3.download_file(bucket, key, key)
+        s3.download_file(bucket, key, '/tmp/{}'.format(key))
 
 
     except Exception as e:
@@ -60,7 +54,7 @@ def lambda_handler(event, context):
         # with open('./'+key) as fileData:
         #     print(fileData.read())
         model = cv2.dnn.readNet(filepath_model)
-        activity = video_activity(key, model)
+        activity = video_activity('/tmp/{}'.format(key), model)
         print(activity)
         # return {
         #     'statusCode': 200,
