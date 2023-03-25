@@ -15,9 +15,9 @@ awsume darify
 # Lambda Layer
 
 #cp -R ./files_activity_recognition ./package
-pip3 install --target ./python/lib/python3.9/site-packages -r requirements.txt
-mkdir ./python/lib/python3.9/site-packages/files_activity_recognition
-cp -R ./files_activity_recognition/class_names_list.txt ./python/lib/python3.9/site-packages/files_activity_recognition
+pip3 install --target ./python -r requirements.txt
+mkdir ./python/files_activity_recognition
+cp -R ./files_activity_recognition/class_names_list.txt ./python/files_activity_recognition
 zip -r lambda-file-processor-layer.zip python
 
 #Lambda function

@@ -7,7 +7,7 @@ import urllib.parse
 import json
 from boto3.dynamodb.types import TypeDeserializer
 
-filepath_class_names = '/opt/python/lib/python3.9/site-packages/files_activity_recognition/class_names_list.txt'
+filepath_class_names = '/opt/python/files_activity_recognition/class_names_list.txt'
 filepath_model = '/tmp/resnet-34_kinetics.onnx'
 with open(filepath_class_names, 'r') as fh:
     class_names = fh.read().strip().split('\n')
