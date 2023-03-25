@@ -190,11 +190,12 @@ export class DareComponent implements OnInit, OnDestroy {
       switchMap(() => this.http.get(`${DARE_AWS_URL}/${uuid}`))
     ).subscribe(async (data : any) => {
       console.log(data);
-      if (data.result !== '') {
+      const result = data.result["Item"]["result"]["S"]
+      if (result !== "") {
         let response;
         let prompt = ''
         let speech = ''
-        if (data.result === 'true'){
+        if (result === 'true'){
           prompt = `Give me a short, sarcastic compliment for ${this.username} for being really good at the following task: ${this.dare.keyPrompt}`
           response = await firstValueFrom(this.gpt3Service.generateText(prompt))
           console.log(response)
