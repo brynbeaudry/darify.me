@@ -10,8 +10,6 @@ punching bag
 export const KNOWN_DARES_LIST = [
     {
       key: '871c26d5-d2fe-4a47-99ab-904b773ad708',
-      //uuid,
-      //username
       keyPrompt: 'Headbang For 10 Seconds',
       acceptableTokens: 'headbanging' // read for an array of acceptable tokens
     },

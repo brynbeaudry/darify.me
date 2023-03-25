@@ -1,5 +1,5 @@
 <ion-content>
-<ion-list>
+<ion-list style="margin-top: 5em;">
   <ion-item *ngFor="let item of dareList" [routerLink]="['/dare/' + item.key]">
     <ion-icon name="alert-circle-outline" slot="start"></ion-icon>
     <ion-label>{{item.keyPrompt}}</ion-label>
