@@ -16,7 +16,8 @@ export class HomeComponent implements OnInit {
    }
 
   async ngOnInit() {
-    this.leaderBoardData = (await firstValueFrom(this.http.get<any>('https://xdg792fpxd.execute-api.us-east-1.amazonaws.com/dev/leaderboard'))).body
+    const response = await firstValueFrom(this.http.get<any>('https://xdg792fpxd.execute-api.us-east-1.amazonaws.com/dev/leaderboard'))
+    this.leaderBoardData = JSON.parse(response.body)
   }
 
 }
