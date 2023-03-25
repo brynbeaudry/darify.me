@@ -6,6 +6,7 @@ import * as AWS from 'aws-sdk';
 import { KNOWN_DARES_LIST } from '../dare-list/constants';
 import { HttpClient } from '@angular/common/http';
 import { Subscription, firstValueFrom, interval, observable, switchMap, takeUntil, tap } from 'rxjs';
+import { Gpt3Service } from '../services/gpt3.service';
 
 
 const DARE_AWS_URL = 'https://xdg792fpxd.execute-api.us-east-1.amazonaws.com/dev/dare'
@@ -23,7 +24,7 @@ Put object to s3 bucket dareme-video-store-dev with key = uuid
 Poll /dare with get requests until the json has result in addition to uuid, username, and prompt */
 export class DareComponent implements OnInit, OnDestroy {
 
-  constructor(private route: ActivatedRoute, private elementRef: ElementRef, private storageService: Storage, private http: HttpClient, private router: Router) { 
+  constructor(private route: ActivatedRoute, private elementRef: ElementRef, private storageService: Storage, private http: HttpClient, private router: Router, private gpt3Service: Gpt3Service) { 
 
     const dareKey = this.route.snapshot.params['key'];
     this.dareKey = dareKey;
@@ -133,6 +134,23 @@ export class DareComponent implements OnInit, OnDestroy {
     });
   }
 
+  speak(text: string) {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      
+      // Set the voice and other properties (optional)
+      utterance.lang = 'en-US';
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+  
+      // Speak the text
+      speechSynthesis.speak(utterance);
+    } else {
+      console.error('Speech synthesis is not supported in this browser.');
+    }
+  };
+  
+
   async onButtonClick(event: any) {
     event.preventDefault();
 
@@ -170,13 +188,27 @@ export class DareComponent implements OnInit, OnDestroy {
 
     const polling = interval(2000).pipe(
       switchMap(() => this.http.get(`${DARE_AWS_URL}/${uuid}`))
-    ).subscribe((data : any) => {
+    ).subscribe(async (data : any) => {
       console.log(data);
       if (data.result !== '') {
+        let response;
+        let prompt = ''
+        let speech = ''
         if (data.result === true){
-          alert('Congratulations!!!!')
+          prompt = `Give me a short, sarcastic compliment for ${this.username} for being really good at the following task: ${this.dare.keyPrompt}`
+          response = await firstValueFrom(this.gpt3Service.generateText(prompt))
+          console.log(response)
+          speech = response.choices[0].text.trim()
+          this.speak(speech)
+
+          //alert('Congratulations!!!!')
         } else {
-          alert('OOO Maybe next time')
+          //alert('OOO Maybe next time')
+          prompt = `Give me a short, sarcastic condolence for ${this.username} for not having been able to complete the following task : ${this.dare.keyPrompt}`
+          response = await firstValueFrom(this.gpt3Service.generateText(prompt))
+          console.log(response)
+          speech = response.choices[0].text.trim()
+          this.speak(speech)
         }
         polling.unsubscribe()
       }
