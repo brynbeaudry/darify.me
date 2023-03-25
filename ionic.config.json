@@ -1,0 +1,7 @@
+{
+  "name": "larker-client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
