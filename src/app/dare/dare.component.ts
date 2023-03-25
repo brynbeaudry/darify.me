@@ -1,11 +1,11 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { v4 as uuidv4 } from 'uuid';
 import * as AWS from 'aws-sdk';
 import { KNOWN_DARES_LIST } from '../dare-list/constants';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom, interval, observable, switchMap, takeUntil, tap } from 'rxjs';
+import { Subscription, firstValueFrom, interval, observable, switchMap, takeUntil, tap } from 'rxjs';
 
 
 const DARE_AWS_URL = 'https://xdg792fpxd.execute-api.us-east-1.amazonaws.com/dev/dare'
@@ -21,11 +21,28 @@ const DARE_AWS_URL = 'https://xdg792fpxd.execute-api.us-east-1.amazonaws.com/dev
 uuid, username, prompt
 Put object to s3 bucket dareme-video-store-dev with key = uuid
 Poll /dare with get requests until the json has result in addition to uuid, username, and prompt */
-export class DareComponent implements OnInit {
+export class DareComponent implements OnInit, OnDestroy {
 
-  constructor(private route: ActivatedRoute, private elementRef: ElementRef, private storageService: Storage, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private elementRef: ElementRef, private storageService: Storage, private http: HttpClient, private router: Router) { 
+
+    const dareKey = this.route.snapshot.params['key'];
+    this.dareKey = dareKey;
+    console.log(`Dare key : ${dareKey}`)
+
+    this.routerSubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        if (event.url === this.router.url) {
+          // Perform the action you want when the route is reloaded.
+          console.log('Route reloaded:', this.router.url);
+          location.reload()
+        }
+      }
+    });
+  }
   private dare: any;
+  private dareKey: any;
   private storage: Storage | null = null;
+  private routerSubscription: Subscription;
   title = ''
   username?: string;
   countDownValue = 0;
@@ -53,7 +70,12 @@ export class DareComponent implements OnInit {
     this.countDownValue = 0
   }
 
+  ngOnDestroy() {
+    this.routerSubscription.unsubscribe();
+  }
+
   async ngOnInit() {
+
     AWS.config.update({
       accessKeyId: 'AKIAYDE77D5UNTLJVM5C',
       secretAccessKey: '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',
@@ -61,12 +83,10 @@ export class DareComponent implements OnInit {
     });
     this.storage = await this.storageService.create();
 
-    const dareKey = this.route.snapshot.params['key'];
-
-    if (dareKey === 'random') {
+    if (this.dareKey === 'random') {
       this.dare = KNOWN_DARES_LIST[Math.floor(Math.random() * KNOWN_DARES_LIST.length)];
     } else {
-      this.dare = KNOWN_DARES_LIST.find(element => element['key'] === dareKey) ?? {}
+      this.dare = KNOWN_DARES_LIST.find(element => element['key'] === this.dareKey) ?? {}
     }
 
     this.title = this.dare.keyPrompt
@@ -123,13 +143,15 @@ export class DareComponent implements OnInit {
       ContentType: 'video/mp4'
     };
 
-    const s3Resp = s3.upload(params).promise();
+    console.log(`Blob : ${blob}`)
+
+    const s3Resp = await s3.upload(params).promise();
 
     interval(2000).pipe(
       switchMap(() => this.http.get(`${DARE_AWS_URL}/${uuid}`))
     ).subscribe((data : any) => {
       console.log(data);
-      if (data.hasOwnProperty('result')) {
+      if (data.result !== '') {
         if (data.result === true){
           alert('Congratulations!!!!')
         } else {

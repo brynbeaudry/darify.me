@@ -26,10 +26,6 @@ const routes: Routes = [
     component: DareListComponent,
   },
   {
-    path: 'dare/random', // Known Dares, Includes random
-    component: DareComponent
-  },
-  {
     path: 'dare/:key', // Known Dares, Includes random
     component: DareComponent
   },
@@ -45,7 +41,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, onSameUrlNavigation: 'reload' })
   ],
   exports: [RouterModule]
 })
