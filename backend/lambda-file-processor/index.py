@@ -11,17 +11,17 @@ s3 = boto3.client('s3')
 def lambda_handler(event, context):
     # print("Received event: " + json.dumps(event, indent=2))
 
-    # Get the object from the event and show its content type
+    # Get the object from the event and show its content type (key is also UUID)
     bucket = event['Records'][0]['s3']['bucket']['name']
     key = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'], encoding='utf-8')
 
     # Get prompt from Firebase
     try:
-        print('Getting prompt from firebase for file: {}'.format(key))
+        print('Getting prompt from backend api for file: {}'.format(key))
 
     except Exception as e:
         print(e)
-        print('Failed to update firebase with result for object: {}'.format(key))
+        print('Failed to retrieve a prompt from backend api for object: {}'.format(key))
         raise e
 
     # Download the file
@@ -50,9 +50,9 @@ def lambda_handler(event, context):
 
     # Upload result to Firebase
     try:
-        print('uploading file to firebase')
+        print('posting result to backend api')
 
     except Exception as e:
         print(e)
-        print('Failed to update firebase with result for object: {}'.format(key))
+        print('Failed to update backend api with result for object: {}'.format(key))
         raise e
