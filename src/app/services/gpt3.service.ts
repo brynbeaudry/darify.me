@@ -15,7 +15,7 @@ export class Gpt3Service {
   generateText(prompt: string): Observable<any> {
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${environment.CHAT_KEY}`,
+      'Authorization': `Bearer ${environment.CHAT_KEY ?? process.env['CHAT_KEY']}`,
     };
 
     const data = {
