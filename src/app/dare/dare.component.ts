@@ -194,7 +194,7 @@ export class DareComponent implements OnInit, OnDestroy {
         let response;
         let prompt = ''
         let speech = ''
-        if (data.result === true){
+        if (data.result === 'true'){
           prompt = `Give me a short, sarcastic compliment for ${this.username} for being really good at the following task: ${this.dare.keyPrompt}`
           response = await firstValueFrom(this.gpt3Service.generateText(prompt))
           console.log(response)
