@@ -192,7 +192,7 @@ export class DareComponent implements OnInit, OnDestroy {
       console.log(data);
       const result = data.result["Item"]["result"]["S"]
       console.log(result)
-      if (result == "true" || result === "false") {
+      if (result === "true" || result === "false") {
         let response;
         let prompt = ''
         let speech = ''
