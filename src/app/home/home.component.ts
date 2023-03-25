@@ -9,7 +9,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
 
-  public leaderBoardData : {} = []
+  public leaderBoardData : any = {}
 
   constructor(private http: HttpClient) {
 
