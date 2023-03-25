@@ -191,6 +191,7 @@ export class DareComponent implements OnInit, OnDestroy {
     ).subscribe(async (data : any) => {
       console.log(data);
       const result = data.result["Item"]["result"]["S"]
+      console.log(result)
       if (result !== "") {
         let response;
         let prompt = ''
@@ -211,7 +212,6 @@ export class DareComponent implements OnInit, OnDestroy {
           speech = response.choices[0].text.trim()
           this.speak(speech)
         }
-        polling.unsubscribe()
       }
     });
 
