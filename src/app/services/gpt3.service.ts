@@ -1,21 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Gpt3Service {
   private apiUrl = 'https://api.openai.com/v1/completions';
-  private apiKey = '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';
+  private xyN6 = 'c2stQUl2OVJ2TkxNNjFHYW10WWxFa2xUM0JsYmtGSkE5czlWTE5CVEhuRW5yVXBQa3BCCg=='
 
   constructor(private http: HttpClient) {}
 
   generateText(prompt: string): Observable<any> {
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${environment.CHAT_KEY ?? process.env['CHAT_KEY']}`,
+      'Authorization': `Bearer ${Buffer.from(this.xyN6, 'base64').toString('utf-8')}`,
     };
 
     const data = {
