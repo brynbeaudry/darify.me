@@ -192,7 +192,7 @@ export class DareComponent implements OnInit, OnDestroy {
       console.log(data);
       const result = data.result["Item"]["result"]["S"]
       console.log(result)
-      if (result !== "") {
+      if (result == "true" || result === "false") {
         let response;
         let prompt = ''
         let speech = ''
@@ -212,6 +212,7 @@ export class DareComponent implements OnInit, OnDestroy {
           speech = response.choices[0].text.trim()
           this.speak(speech)
         }
+        polling.unsubscribe()
       }
     });
 
