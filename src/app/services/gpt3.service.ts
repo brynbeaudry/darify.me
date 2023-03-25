@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class Gpt3Service {
-  private apiUrl = 'https://api.openai.com/v1/engines/davinci-codex/completions';
+  private apiUrl = 'https://api.openai.com/v1/completions';
   private apiKey = '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';
 
   constructor(private http: HttpClient) {}
@@ -19,9 +19,8 @@ export class Gpt3Service {
 
     const data = {
       prompt: prompt,
+      model: 'text-davinci-003',
       max_tokens: 50, // Adjust this value based on the desired response length
-      n: 1,
-      stop: null,
       temperature: 1,
     };
 

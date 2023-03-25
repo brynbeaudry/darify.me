@@ -18,4 +18,18 @@
     <strong class="capitalize">Dare Time!</strong>
     <p> Click on the LEFT hand menu to get started</p>
   </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of leaderboard | keyvalue">
+          <td>{{ entry.key }}</td>
+          <td>{{ entry.value }}</td>
+        </tr>
+      </tbody>
+    </table>
 </ion-content>

@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  public leaderBoardData : {} = []
 
-  ngOnInit() {}
+  constructor(private http: HttpClient) {
+
+   }
+
+  async ngOnInit() {
+    this.leaderBoardData = await firstValueFrom(this.http.get<any>('https://xdg792fpxd.execute-api.us-east-1.amazonaws.com/dev/leaderboard'))
+  }
 
 }
