@@ -39,7 +39,7 @@ export const KNOWN_DARES_LIST = [
     acceptableTokens: 'shaking hands'
   },
   {
-    key: 'd7f8ad97-8d56-4b58-b000-f8d4f964eea3',
+    key: 'd368f672-afa0-411c-a4fd-c2a973b2992a',
     keyPrompt: 'Drink beer for 10 seconds',
     acceptableTokens: 'tasting beer'
   },
