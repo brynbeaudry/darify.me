@@ -20,7 +20,7 @@ export class Gpt3Service {
     const data = {
       prompt: prompt,
       model: 'text-davinci-003',
-      max_tokens: 50, // Adjust this value based on the desired response length
+      max_tokens: 1000, // Adjust this value based on the desired response length
       temperature: 1,
     };
 
