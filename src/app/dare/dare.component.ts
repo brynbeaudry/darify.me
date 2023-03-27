@@ -154,6 +154,7 @@ export class DareComponent implements OnInit, OnDestroy {
       for (const s of sentences) {
         // Speak the text
         await waitForUtterance(s)
+        console.log('Uttering one sentence')
       }
     } else {
       console.error('Speech synthesis is not supported in this browser.');
@@ -208,7 +209,7 @@ export class DareComponent implements OnInit, OnDestroy {
         let prompt = ''
         let speech = ''
         if (result === 'true'){
-          prompt = `Give me a long-winded, sarcastic compliment for ${this.username} for being really good at the following task: ${this.dare.keyPrompt}`
+          prompt = `Give me a really long, sarcastic compliment for ${this.username} for being really good at the following task: ${this.dare.keyPrompt}`
           response = await firstValueFrom(this.gpt3Service.generateText(prompt))
           console.log(response)
           speech = response.choices[0].text.trim()
@@ -217,7 +218,7 @@ export class DareComponent implements OnInit, OnDestroy {
           //alert('Congratulations!!!!')
         } else {
           //alert('OOO Maybe next time')
-          prompt = `Give me a long-winded, sarcastic condolence for ${this.username} for not having been able to complete the following task : ${this.dare.keyPrompt}`
+          prompt = `Give me a really long sarcastic condolence for ${this.username} for not having been able to complete the following task : ${this.dare.keyPrompt}`
           response = await firstValueFrom(this.gpt3Service.generateText(prompt))
           console.log(response)
           speech = response.choices[0].text.trim()
