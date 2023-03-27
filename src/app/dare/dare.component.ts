@@ -134,19 +134,30 @@ export class DareComponent implements OnInit, OnDestroy {
     });
   }
 
-  speak(text: string) {
+  async speak(text: string) {
+
+    const waitForUtterance = (text:string) => {
+      return new Promise((resolve, reject) => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        // Set the voice and other properties (optional)
+        utterance.lang = 'en-US';
+        utterance.rate = 0.8;
+        utterance.pitch = 1.0;
+        utterance.onend = resolve;
+        utterance.onerror = reject;
+        speechSynthesis.speak(utterance);
+      });
+    }
+
     if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      
-      // Set the voice and other properties (optional)
-      utterance.lang = 'en-US';
-      utterance.rate = 1.0;
-      utterance.pitch = 1.0;
-  
-      // Speak the text
-      speechSynthesis.speak(utterance);
+      const sentences = text.split('.')
+      for (const s of sentences) {
+        // Speak the text
+        await waitForUtterance(s)
+      }
     } else {
       console.error('Speech synthesis is not supported in this browser.');
+      alert(text)
     }
   };
   
